@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self' https://www.paypal.com; frame-ancestors 'none'; base-uri 'self'; upgrade-insecure-requests;">
+<meta http-equiv="X-XSS-Protection" content="1; mode=block">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>BestFriends Pet Brazil — Rescue Dogs Need You</title>
+<meta name="description" content="BestFriends Pet Brazil saves sick and abandoned dogs, nurses them back to health and finds them loving homes. Chave PIX e PayPal: rescuebrazilorg@gmail.com. Your $10 goes 5× further in Brazil.">
+<meta property="og:title" content="BestFriends Pet Brazil — Rescue Dogs Need You">
+<meta property="og:description" content="BestFriends Pet Brazil saves sick and abandoned dogs. Chave PIX & PayPal: rescuebrazilorg@gmail.com. Your donation goes 5× further in Brazil.">
+<meta property="og:image" content="images/luna1.jpeg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#0ea5e9;
+  --pink-dark:#0284c7;
+  --pink-deep:#0369a1;
+  --pink-soft:#e0f2fe;
+  --pink-pale:#f0f9ff;
+  --white:#ffffff;
+  --ink:#0f172a;
+  --ink-soft:#475569;
+  --shadow:0 12px 30px rgba(14,165,233,.12);
+  --radius:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden}
+h1,h2,h3{font-weight:900;line-height:1.12}
+img,svg{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--pink);color:#fff}
+
+.pix-box {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--pink-pale);
+  border: 2px dashed var(--pink);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.pix-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(14,165,233,0.15);
+}
+.pix-title {
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: var(--pink-deep);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pix-key-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pink-soft);
+  box-shadow: 0 4px 14px rgba(14,165,233,0.1);
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.pix-key-text {
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: var(--ink);
+  word-break: break-all;
+}
+.copy-btn {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  font-family: inherit;
+  box-shadow: 0 4px 12px rgba(14,165,233,0.3);
+}
+.copy-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(14,165,233,0.45);
+}
+.copy-btn:active {
+  transform: scale(0.97);
+}
+.toast-msg {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.3);
+  z-index: 1000;
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.35s ease;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.toast-msg.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s ease var(--delay,0s),transform .9s cubic-bezier(.2,.7,.2,1) var(--delay,0s)}
+.reveal.in{opacity:1;transform:none}
+
+nav{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(18px,5vw,56px);transition:background .35s,box-shadow .35s,padding .35s}
+nav.scrolled{background:rgba(255,255,255,.86);backdrop-filter:blur(14px);box-shadow:0 6px 30px rgba(230,57,128,.12);padding:10px clamp(18px,5vw,56px)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:1.25rem;letter-spacing:-.3px}
+.brand .paw{width:42px;height:42px;background:var(--pink);border-radius:50%;display:grid;place-items:center;font-size:20px;color:#fff;box-shadow:0 8px 20px rgba(255,79,154,.4)}
+.nav-links{display:flex;align-items:center;gap:clamp(14px,2.5vw,34px);font-weight:800}
+.nav-links a:not(.btn){position:relative;padding:4px 0;color:var(--ink)}
+.nav-links a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:3px;border-radius:3px;background:var(--pink);transition:width .3s}
+.nav-links a:not(.btn):hover::after{width:100%}
+.menu-btn{display:none;width:46px;height:46px;border:2px solid var(--pink-soft);background:#fff;border-radius:14px;font-size:20px;color:var(--pink-dark);cursor:pointer;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(230,57,128,.12);font-family:inherit}
+@media(max-width:760px){
+  .menu-btn{display:flex}
+  .nav-links{position:fixed;top:74px;left:14px;right:14px;flex-direction:column;align-items:stretch;text-align:center;background:#fff;border-radius:22px;padding:24px;gap:18px;box-shadow:0 24px 70px rgba(230,57,128,.28);opacity:0;pointer-events:none;transform:translateY(-12px);transition:opacity .3s,transform .3s}
+  .nav-links.open{opacity:1;pointer-events:auto;transform:none}
+  .nav-links a:not(.btn){display:block;padding:6px 0}
+  .nav-links .btn{justify-content:center}
+}
+
+.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--pink),var(--pink-dark));color:#fff;font-weight:900;font-size:1.02rem;padding:15px 32px;border-radius:999px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(255,79,154,.42);transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;font-family:inherit}
+.btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 18px 40px rgba(255,79,154,.55)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.ghost{background:#fff;color:var(--pink-dark);box-shadow:0 10px 26px rgba(230,57,128,.16);border:2px solid var(--pink-soft)}
+.btn.big{font-size:1.2rem;padding:19px 44px}
+
+#floatDonate{position:fixed;right:22px;bottom:22px;z-index:99;opacity:0;pointer-events:none;transform:translateY(20px);transition:opacity .4s,transform .4s}
+#floatDonate.show{opacity:1;pointer-events:auto;transform:none}
+#floatDonate .btn{animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 12px 30px rgba(255,79,154,.42)}50%{box-shadow:0 12px 30px rgba(255,79,154,.42),0 0 0 14px rgba(255,79,154,.12)}}
+
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;background:#ffffff;padding:120px 24px 80px}
+.hero .tag{background:#fff;color:var(--pink-dark);font-weight:900;font-size:.85rem;letter-spacing:2.5px;text-transform:uppercase;padding:10px 22px;border-radius:999px;box-shadow:0 8px 24px rgba(230,57,128,.14);margin-bottom:26px;animation:floatY 4s ease-in-out infinite}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);letter-spacing:-2px;max-width:18ch}
+.hero h1 em{font-style:normal;color:var(--pink);position:relative;white-space:nowrap}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:.28em;background:var(--pink-soft);z-index:-1;border-radius:6px}
+.hero p.sub{margin:26px 0 38px;font-size:clamp(1.05rem,2vw,1.3rem);color:var(--ink-soft);max-width:60ch;font-weight:600}
+.hero .cta-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.hero .trust-bar{display:flex;gap:32px;margin-top:48px;flex-wrap:wrap;justify-content:center}
+.hero .trust-item{display:flex;align-items:center;gap:8px;font-weight:800;font-size:.95rem;color:var(--ink-soft)}
+.hero .trust-item span{font-size:1.4rem}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--pink-dark);font-weight:800;font-size:.85rem;letter-spacing:1.5px}
+.scroll-hint .mouse{width:26px;height:42px;border:3px solid var(--pink);border-radius:14px;position:relative}
+.scroll-hint .mouse::after{content:"";position:absolute;left:50%;top:7px;width:5px;height:9px;margin-left:-2.5px;border-radius:3px;background:var(--pink);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+.floaters{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.floaters span{position:absolute;bottom:-60px;font-size:var(--s,22px);left:var(--x,50%);opacity:0;animation:rise var(--t,11s) linear infinite;animation-delay:var(--d,0s);filter:saturate(1.2)}
+@keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}12%{opacity:.5}85%{opacity:.35}100%{transform:translateY(-110vh) rotate(50deg);opacity:0}}
+
+#journey{position:relative;height:520vh;background:#fff}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fff}
+.stage-inner{position:relative;width:min(760px,94vw);display:flex;flex-direction:column;align-items:center;z-index:2}
+.health{position:absolute;top:max(84px,9svh);left:50%;transform:translateX(-50%);width:min(480px,84vw);z-index:5;text-align:center}
+.health .label{font-weight:900;letter-spacing:2px;font-size:.85rem;text-transform:uppercase;color:var(--pink-deep);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:10px}
+.health .label .pulse-dot{width:10px;height:10px;border-radius:50%;background:var(--pink);animation:dotPulse 1.4s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.health .track{height:20px;background:#fff;border:2px solid var(--pink-soft);border-radius:999px;overflow:hidden;box-shadow:inset 0 2px 6px rgba(0,0,0,.08),0 6px 20px rgba(230,57,128,.15)}
+.health .fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#ff8ec0,var(--pink),var(--pink-dark));position:relative;transition:width .15s ease-out}
+.health .fill::after{content:"❤";position:absolute;right:4px;top:50%;transform:translateY(-52%);font-size:13px;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2))}
+.health .status{margin-top:10px;font-weight:800;font-size:.8rem;color:var(--ink-soft);letter-spacing:1px;min-height:20px}
+#dogFrame{width:min(720px,92vw);height:auto;max-height:74svh;object-fit:contain;filter:drop-shadow(0 24px 40px rgba(94,42,68,.18));transition:filter .4s}
+.captions{position:absolute;bottom:max(30px,5svh);left:0;right:0;z-index:5;height:110px;pointer-events:none}
+.captions .cap{position:absolute;left:50%;transform:translateX(-50%) translateY(8px);opacity:0;width:min(620px,88vw);text-align:center;transition:opacity .35s ease,transform .35s ease}
+.captions .cap h3{font-size:clamp(1.15rem,3.2vw,1.8rem);color:var(--ink);background:rgba(255,255,255,.88);backdrop-filter:blur(10px);display:inline-block;padding:14px 30px;border-radius:20px;box-shadow:0 10px 34px rgba(94,42,68,.14)}
+.keep-scrolling{position:absolute;bottom:46%;right:3%;writing-mode:vertical-rl;letter-spacing:4px;font-weight:900;font-size:.72rem;color:var(--pink-dark);opacity:.9;z-index:5;background:#fff;padding:16px 8px;border-radius:999px;box-shadow:0 4px 16px rgba(230,57,128,.12);animation:bounceHint 2s ease-in-out infinite}
+@keyframes bounceHint{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.heart-pop{position:absolute;z-index:8;font-size:var(--fs,22px);left:var(--x,50%);top:var(--y,50%);pointer-events:none;animation:heartPop 1.9s cubic-bezier(.15,.6,.3,1) forwards}
+@keyframes heartPop{0%{transform:translate(0,0) scale(0) rotate(0);opacity:1}20%{transform:translate(calc(var(--dx)*.3),calc(var(--dy)*.4)) scale(1.15) rotate(calc(var(--rot)*.4));opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.7) rotate(var(--rot));opacity:0}}
+
+section.block{padding:clamp(80px,11vw,140px) clamp(20px,6vw,72px);position:relative}
+.center{text-align:center}
+.kicker{color:var(--pink);font-weight:900;letter-spacing:3px;text-transform:uppercase;font-size:.85rem;margin-bottom:14px}
+h2.title{font-size:clamp(2rem,4.6vw,3.3rem);letter-spacing:-1.2px;margin-bottom:18px}
+p.lead{color:var(--ink-soft);font-weight:600;font-size:1.12rem;max-width:62ch;margin:0 auto}
+
+#impact{background:#ffffff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px;max-width:1050px;margin:56px auto 0}
+.stat{background:#fff;border-radius:var(--radius);padding:38px 26px;text-align:center;box-shadow:var(--shadow);border:2px solid var(--pink-pale);transition:transform .3s}
+.stat:hover{transform:translateY(-8px)}
+.stat .num{font-size:clamp(2.4rem,4.5vw,3.4rem);font-weight:900;color:var(--pink-dark);letter-spacing:-1px}
+.stat .num small{font-size:.55em}
+.stat .lbl{font-weight:800;color:var(--ink-soft);margin-top:6px}
+
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:24px;max-width:1150px;margin:60px auto 0}
+.tier{background:#fff;border:2px solid var(--pink-soft);border-radius:var(--radius);padding:36px 28px;text-align:center;position:relative;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;cursor:pointer}
+.tier:hover{transform:translateY(-10px) rotate(-1deg);box-shadow:var(--shadow);border-color:var(--pink)}
+.tier .ico{font-size:2.6rem;margin-bottom:14px;display:inline-block;transition:transform .35s}
+.tier:hover .ico{transform:scale(1.25) rotate(-8deg)}
+.tier .amt{font-size:2rem;font-weight:900;color:var(--pink-dark)}
+.tier .amt small{font-size:.5em;color:var(--ink-soft);font-weight:800}
+.tier h3{margin:8px 0 10px;font-size:1.15rem}
+.tier p{color:var(--ink-soft);font-weight:600;font-size:.95rem}
+.tier .real-impact{margin-top:14px;padding:10px 16px;background:var(--pink-pale);border-radius:14px;font-weight:800;font-size:.9rem;color:var(--pink-deep);line-height:1.4}
+.tier.featured{border-color:var(--pink);box-shadow:var(--shadow)}
+.tier.featured::before{content:"MOST POPULAR";position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--pink);color:#fff;font-size:.7rem;font-weight:900;letter-spacing:2px;padding:5px 16px;border-radius:999px}
+
+#donate{background:#f8fafc}
+#donate .kicker{color:var(--pink)}
+#donate h2.title{color:var(--ink)}
+#donate p.lead{color:var(--ink-soft)}
+.donate-card{background:#fff;border-radius:34px;box-shadow:0 40px 100px rgba(90,10,50,.35);max-width:640px;margin:52px auto 0;padding:clamp(30px,5vw,52px);text-align:center}
+.amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0 18px}
+.amt-btn{border:2.5px solid var(--pink-soft);background:#fff;border-radius:18px;padding:18px 8px;font-family:inherit;font-weight:900;font-size:1.25rem;color:var(--ink);cursor:pointer;transition:all .22s}
+.amt-btn:hover{border-color:var(--pink);transform:translateY(-3px)}
+.amt-btn.sel{background:linear-gradient(135deg,var(--pink),var(--pink-dark));border-color:transparent;color:#fff;box-shadow:0 10px 24px rgba(255,79,154,.4)}
+.amt-btn small{display:block;font-size:.6em;font-weight:700;margin-top:4px;opacity:.8}
+.custom-amt{display:flex;align-items:center;gap:10px;border:2.5px solid var(--pink-soft);border-radius:18px;padding:6px 18px;margin-bottom:22px;transition:border-color .2s}
+.custom-amt:focus-within{border-color:var(--pink)}
+.custom-amt span{font-weight:900;font-size:1.3rem;color:var(--pink-dark)}
+.custom-amt input{border:none;outline:none;font-family:inherit;font-weight:800;font-size:1.15rem;width:100%;padding:12px 0;color:var(--ink)}
+.impact-line{min-height:28px;font-weight:800;color:var(--pink-dark);margin-bottom:22px;font-size:1.02rem}
+#paypalBtn{width:100%;justify-content:center;font-size:1.25rem;padding:20px}
+.pp-mark{font-style:italic;font-weight:900;letter-spacing:-.5px}
+.secure-note{margin-top:16px;color:var(--ink-soft);font-weight:700;font-size:.85rem}
+.secure-note b{color:var(--pink-dark)}
+
+.stories{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;max-width:1150px;margin:60px auto 0}
+.story{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:2px solid var(--pink-pale);transition:transform .35s}
+.story:hover{transform:translateY(-9px)}
+.story .photo{height:260px;overflow:hidden;position:relative;background:linear-gradient(135deg,var(--pink-soft),var(--pink-pale))}
+.story .photo img{width:100%;height:100%;object-fit:cover}
+.story .photo .label{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.6);color:#fff;font-weight:900;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px)}
+.story .body{padding:26px}
+.story h3{color:var(--pink-dark);margin-bottom:8px;font-size:1.3rem}
+.story p{color:var(--ink-soft);font-weight:600;font-size:.98rem;line-height:1.5}
+.story .badge{display:inline-block;margin-top:14px;background:var(--pink-pale);color:var(--pink-deep);font-weight:900;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;max-width:1150px;margin:50px auto 0}
+.gallery .g-item{border-radius:18px;overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer;transition:transform .3s}
+.gallery .g-item:hover{transform:scale(1.04)}
+.gallery .g-item img{width:100%;height:100%;object-fit:cover}
+.gallery .g-item .g-overlay{position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(74,36,54,.55));display:flex;align-items:flex-end;padding:14px;opacity:0;transition:opacity .3s}
+.gallery .g-item:hover .g-overlay{opacity:1}
+.gallery .g-overlay span{color:#fff;font-weight:800;font-size:.85rem}
+
+.before-after{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;max-width:1150px;margin:60px auto 0}
+
+
+footer{background:#f1f5f9;color:var(--ink-soft);padding:64px clamp(20px,6vw,72px) 34px;text-align:center;border-top:1px solid #e2e8f0;}
+footer .brand{justify-content:center;color:var(--ink);margin-bottom:16px}
+footer p{font-weight:600;opacity:.85;max-width:60ch;margin:0 auto 26px}
+footer .fine{font-size:.8rem;opacity:.55;margin-top:30px}
+
+@media(max-width:560px){
+  .hero{padding:104px 18px 90px}
+  .hero .cta-row{flex-direction:column;align-items:stretch;width:min(340px,100%)}
+  .cta-row .btn{justify-content:center}
+  .keep-scrolling{display:none}
+  .health{width:88vw}
+  .health .track{height:16px}
+  #dogFrame{max-height:64svh}
+  .captions .cap h3{padding:12px 20px;font-size:1.05rem}
+  .amounts{gap:10px}
+  .amt-btn{font-size:1.1rem;padding:15px 6px}
+  .donate-card{border-radius:26px}
+  #paypalBtn{font-size:1.08rem;padding:17px}
+  #floatDonate{right:14px;bottom:14px}
+  section.block{padding:70px 18px}
+  footer{padding:52px 18px 28px}
+
+}
+@media(max-width:380px){
+  .amounts{grid-template-columns:repeat(2,1fr)}
+  .brand{font-size:1.1rem}
+  .brand .paw{width:36px;height:36px;font-size:17px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="brand" href="#top"><span class="paw">🐾</span>BestFriends Pet Brazil</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#stories">Their Stories</a>
+    <a href="#impact">Our Impact</a>
+    <a href="#help">How You Help</a>
+    <a href="#donate" class="btn">Donate ❤</a>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+</nav>
+
+<div id="floatDonate"><a href="#donate" class="btn">Donate ❤</a></div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<header class="hero" id="top">
+  <div class="tag">🐶 Rescuing Dogs in Brazil</div>
+  <h1>Your $10 can save a <em>life</em></h1>
+  <p class="sub">We rescue sick and abandoned dogs in Brazil, nurse them back to health, and find them loving families. Because we're in Brazil, <b>your dollar goes 5× further</b> — $10 here covers what $50 would in the US. Every dollar goes straight to the dogs.</p>
+  <div class="cta-row">
+    <a href="#donate" class="btn big">Save a Dog Today ❤</a>
+    <a href="#stories" class="btn ghost big">See Who You'll Save ↓</a>
+  </div>
+  <div class="trust-bar">
+    <div class="trust-item"><span>🐕</span> 2,400+ dogs rescued</div>
+    <div class="trust-item"><span>🏠</span> 1,900+ adopted</div>
+    <div class="trust-item"><span>🌍</span> 14 years saving lives</div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><div class="mouse"></div>SCROLL</div>
+</header>
+
+<!-- ═══════════════ STORIES ═══════════════ -->
+<section class="block center" id="stories" style="background:#f8fafc">
+  <p class="kicker reveal">Their Stories</p>
+  <h2 class="title reveal">They were left to die. Someone like you saved them.</h2>
+  <p class="lead reveal">Every rescue starts with a donor who decided to care. These three dogs are alive today because someone, somewhere, clicked "Donate."</p>
+  <div class="stories">
+    <div class="story reveal" style="--delay:.05s">
+      <div class="photo"><img src="images/luna1.jpeg" alt="Luna the rescue dog, fluffy and happy" loading="lazy" decoding="async"></div>
+      <div class="body"><h3>Luna</h3><p>Found with severe mange and too weak to stand. After 3 months of treatment, she's now the fluffiest girl on her new family's couch.</p><span class="badge">Adopted ❤</span></div>
+    </div>
+    <div class="story reveal" style="--delay:.15s">
+      <div class="photo"><img src="images/max1.jpeg" alt="Max the rescue dog running happily" loading="lazy" decoding="async"></div>
+      <div class="body"><h3>Max</h3><p>Hit by a car and left on the roadside. Two surgeries later, he runs faster than any dog at the shelter — straight into his new dad's arms.</p><span class="badge">Adopted ❤</span></div>
+    </div>
+    <div class="story reveal" style="--delay:.25s">
+      <div class="photo"><img src="images/bella1.jpeg" alt="Bella the therapy dog" loading="lazy" decoding="async"></div>
+      <div class="body"><h3>Bella</h3><p>A puppy abandoned in a cardboard box in the rain. Donors funded her care — today she's a certified therapy dog visiting hospitals.</p><span class="badge">Therapy Dog ❤</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<section class="block center" id="gallery">
+  <p class="kicker reveal">Gallery</p>
+  <h2 class="title reveal">Inside Our Shelter</h2>
+  <p class="lead reveal">A look at daily life at BestFriends Pet Brazil — the dogs, the care, the love.</p>
+  <div class="gallery">
+    <div class="g-item reveal" style="--delay:.05s"><img src="images/Instituto_Caramelo_B.jpg" alt="Shelter dogs playing" loading="lazy" decoding="async"><div class="g-overlay"><span>Dogs playing at the shelter</span></div></div>
+    <div class="g-item reveal" style="--delay:.1s"><img src="images/Instituto_Caramelo_B_1.jpg" alt="Volunteer caring for a dog" loading="lazy" decoding="async"><div class="g-overlay"><span>Volunteer bath time</span></div></div>
+    <div class="g-item reveal" style="--delay:.15s"><img src="images/Instituto_Caramelo_B_2.jpg" alt="Dogs resting at the shelter" loading="lazy" decoding="async"><div class="g-overlay"><span>Nap time in the cozy wing</span></div></div>
+    <div class="g-item reveal" style="--delay:.2s"><img src="images/luna1.jpeg" alt="Luna happy after adoption" loading="lazy" decoding="async"><div class="g-overlay"><span>Luna — adopted!</span></div></div>
+    <div class="g-item reveal" style="--delay:.25s"><img src="images/max1.jpeg" alt="Max running happily" loading="lazy" decoding="async"><div class="g-overlay"><span>Max — adopted!</span></div></div>
+    <div class="g-item reveal" style="--delay:.3s"><img src="images/bella1.jpeg" alt="Bella the therapy dog" loading="lazy" decoding="async"><div class="g-overlay"><span>Bella — therapy dog!</span></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ JOURNEY ═══════════════ -->
+<div id="journey" aria-label="A rescued dog recovering as you scroll">
+  <div class="stage">
+    <div class="health">
+      <div class="label"><span class="pulse-dot"></span>Recovery <span id="healthPct">0</span>%</div>
+      <div class="track"><div class="fill" id="healthFill"></div></div>
+      <div class="status" id="healthStatus">Rescue in progress...</div>
+    </div>
+    <div class="keep-scrolling" id="keepScroll">KEEP SCROLLING ↓</div>
+    <div class="stage-inner">
+      <img id="dogFrame" src="images/frames/ezgif-frame-001.png" alt="Rescued dog recovering as you scroll">
+    </div>
+    <div class="captions">
+      <div class="cap"><h3>😢 Found alone — sick, scared and starving.</h3></div>
+      <div class="cap"><h3>🏥 Rescued. Medicine, a warm bed and gentle hands.</h3></div>
+      <div class="cap"><h3>🍖 Eating well and growing stronger every day.</h3></div>
+      <div class="cap"><h3>💖 Healthy, happy — and ready for a loving home!</h3></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ IMPACT ═══════════════ -->
+<section class="block center" id="impact">
+  <p class="kicker reveal">Our Impact</p>
+  <h2 class="title reveal">Love, measured in wagging tails</h2>
+  <p class="lead reveal">Every number below is a life that was given a second chance — thanks to donors like you.</p>
+  <div class="stats">
+    <div class="stat reveal" style="--delay:.05s"><div class="num"><span class="count" data-target="2437">0</span><small>+</small></div><div class="lbl">Dogs rescued</div></div>
+    <div class="stat reveal" style="--delay:.15s"><div class="num"><span class="count" data-target="1982">0</span><small>+</small></div><div class="lbl">Happy adoptions</div></div>
+    <div class="stat reveal" style="--delay:.25s"><div class="num"><span class="count" data-target="96">0</span><small>%</small></div><div class="lbl">Recovery rate</div></div>
+    <div class="stat reveal" style="--delay:.35s"><div class="num"><span class="count" data-target="14">0</span></div><div class="lbl">Years of rescue work</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ HOW YOU HELP ═══════════════ -->
+<section class="block center" id="help">
+  <p class="kicker reveal">How You Help</p>
+  <h2 class="title reveal">Your $10 = 2 bags of dog food in Brazil</h2>
+  <p class="lead reveal">Our shelter is in Brazil, where every <b>$1 becomes about R$5</b>. A $10 gift — less than a coffee in the US — buys real food, real medicine, and saves a real life. Here's exactly what your money does:</p>
+  <div class="tiers">
+    <div class="tier reveal" style="--delay:.05s" data-pick="5">
+      <span class="ico">🍖</span>
+      <div class="amt">$5 <small>≈ R$25</small></div>
+      <h3>2 Days of Meals</h3>
+      <p>Warm, nutritious meals for a starving rescue — for 2 full days.</p>
+      <div class="real-impact">= 1 bag of premium dog food 🥣</div>
+    </div>
+    <div class="tier featured reveal" style="--delay:.15s" data-pick="10">
+      <span class="ico">🥣</span>
+      <div class="amt">$10 <small>≈ R$50</small></div>
+      <h3>1 Week of Food</h3>
+      <p>Feeds one rescued dog for an entire week — nutritious meals every day.</p>
+      <div class="real-impact">= Alimenta 1 cão por 1 semana 🐕</div>
+    </div>
+    <div class="tier reveal" style="--delay:.25s" data-pick="25">
+      <span class="ico">💉</span>
+      <div class="amt">$25 <small>≈ R$125</small></div>
+      <h3>Vaccines &amp; Meds</h3>
+      <p>Full vaccination + 1 month of daily medication for a rescued pup.</p>
+      <div class="real-impact">= Complete vaccine schedule + 30 days of meds 💉</div>
+    </div>
+    <div class="tier reveal" style="--delay:.35s" data-pick="60">
+      <span class="ico">🏥</span>
+      <div class="amt">$60 <small>≈ R$300</small></div>
+      <h3>One Full Rescue</h3>
+      <p>From street to sofa: vet surgery, shelter stay, and adoption prep.</p>
+      <div class="real-impact">= One complete rescue story 🐕</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DONATE ═══════════════ -->
+<section class="block center" id="donate">
+  <p class="kicker reveal">Donate</p>
+  <h2 class="title reveal">Thor needs a $30 surgery. Will you be the one?</h2>
+  <p class="lead reveal">This is Thor. He was hit by a car and left on the roadside. A $30 surgery can save his leg. In Brazil, that same $30 covers the full rescue — surgery, medicine, food, and a foster home. Your dollar goes 5× further here.</p>
+
+  <div class="donate-card reveal" style="--delay:.1s">
+    <h3 style="font-size:1.3rem">Choose your gift 💝</h3>
+    <div class="amounts">
+      <button class="amt-btn" data-amt="5">$5<small>2 days of food</small></button>
+      <button class="amt-btn sel" data-amt="10">$10<small>1 week of care</small></button>
+      <button class="amt-btn" data-amt="25">$25<small>vaccines + meds</small></button>
+      <button class="amt-btn" data-amt="50">$50<small>vet exams + bloodwork</small></button>
+      <button class="amt-btn" data-amt="100">$100<small>full rescue treatment</small></button>
+      <button class="amt-btn" data-amt="250">$250<small>save 2 dogs completely</small></button>
+    </div>
+    <div class="custom-amt">
+      <span>$</span>
+      <input id="customAmt" type="number" min="1" step="1" placeholder="Or enter a custom amount (USD)">
+    </div>
+    <div class="impact-line" id="impactLine"></div>
+    <button class="btn" id="paypalBtn">Donate <span id="btnAmt">$10</span> with <span class="pp-mark">PayPal</span> ❤</button>
+    <p class="secure-note">🔒 Secure checkout on <b>PayPal</b> · USD · You can choose <b>monthly</b> on PayPal's page</p>
+    
+    <div class="pix-box">
+      <div class="pix-title">⚡ <span>Chave PIX (E-mail) / Chave do Site:</span></div>
+      <div class="pix-key-wrapper">
+        <span class="pix-key-text" id="pixKeyText">rescuebrazilorg@gmail.com</span>
+        <button class="copy-btn" id="copyPixBtn" type="button" aria-label="Copiar chave PIX">Copiar 📋</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <a class="brand" href="#top"><span class="paw">🐾</span>BestFriends Pet Brazil</a>
+  <p>We rescue, rehabilitate and rehome sick and abandoned dogs in Brazil. Donations are processed securely through PayPal or PIX. Every dollar goes 5× further here.</p>
+  <a href="#donate" class="btn">Donate ❤</a>
+  <p class="fine">© 2026 BestFriends Pet Brazil · Made with 💗 for the dogs · rescuebrazilorg@gmail.com</p>
+</footer>
+
+<script>
+const PAYPAL_EMAIL = "rescuebrazilorg@gmail.com";
+const SITE_KEY_EMAIL = "rescuebrazilorg@gmail.com";
+const ORG_NAME = "BestFriends Pet Brazil";
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+const lerp = (a,b,t) => a+(b-a)*t;
+const win = (p,i0,i1,o0,o1) => {
+  if(p<=i0) return 0;
+  if(p<i1) return (p-i0)/(i1-i0);
+  if(o0===undefined || p<=o0) return 1;
+  if(p<o1) return 1-(p-o0)/(o1-o0);
+  return 0;
+};
+const ease = t => t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+
+const nav = $('#nav'), floatBtn = $('#floatDonate');
+addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', scrollY > 40);
+  floatBtn.classList.toggle('show', scrollY > innerHeight*0.9);
+}, {passive:true});
+
+const menuBtn = $('#menuBtn'), navLinks = $('#navLinks');
+menuBtn.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', open);
+  menuBtn.textContent = open ? '✕' : '☰';
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', 'false');
+  menuBtn.textContent = '☰';
+}));
+
+const journey = $('#journey');
+const el = id => document.getElementById(id);
+const caps = $$('.cap');
+let popped = false, ticking = false;
+
+const FRAME_COUNT = 201;
+const framePath = i => 'images/frames/ezgif-frame-' + String(i).padStart(3,'0') + '.png';
+const dogFrame = el('dogFrame');
+let currentFrame = 1;
+
+const frameCache = new Array(FRAME_COUNT + 1);
+
+// Immediately preload frame 1 for smooth startup
+const img1 = new Image();
+img1.src = framePath(1);
+frameCache[1] = img1;
+
+// Parallel batched preloader (loads 8 frames concurrently for maximum speed)
+async function preloadFramesBatched() {
+  const BATCH_SIZE = 8;
+  for (let i = 2; i <= FRAME_COUNT; i += BATCH_SIZE) {
+    const batch = [];
+    for (let j = i; j < i + BATCH_SIZE && j <= FRAME_COUNT; j++) {
+      batch.push(new Promise(resolve => {
+        const img = new Image();
+        img.onload = img.onerror = () => {
+          frameCache[j] = img;
+          resolve();
+        };
+        img.src = framePath(j);
+      }));
+    }
+    await Promise.all(batch);
+  }
+}
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(() => preloadFramesBatched());
+} else {
+  setTimeout(preloadFramesBatched, 150);
+}
+
+function setFrame(p){
+  const idx = clamp(1 + Math.round(p * (FRAME_COUNT-1)), 1, FRAME_COUNT);
+  if(idx === currentFrame) return;
+  currentFrame = idx;
+  dogFrame.src = framePath(idx);
+}
+
+function heartBurst(){
+  const stage = journey.querySelector('.stage');
+  const emojis = ['🤍','✨','💙'];
+  for(let i=0;i<26;i++){
+    const s = document.createElement('span');
+    s.className = 'heart-pop';
+    s.textContent = emojis[i%emojis.length];
+    s.style.setProperty('--x', (35+Math.random()*30)+'%');
+    s.style.setProperty('--y', (30+Math.random()*30)+'%');
+    s.style.setProperty('--dx', (Math.random()*440-220)+'px');
+    s.style.setProperty('--dy', (-120-Math.random()*300)+'px');
+    s.style.setProperty('--rot', (Math.random()*160-80)+'deg');
+    s.style.setProperty('--fs', (16+Math.random()*22)+'px');
+    stage.appendChild(s);
+    setTimeout(()=>s.remove(), 2000);
+  }
+}
+
+function updateJourney(){
+  ticking = false;
+  const rect = journey.getBoundingClientRect();
+  if(rect.bottom < -50 || rect.top > innerHeight+50) return;
+  const total = journey.offsetHeight - innerHeight;
+  const p = clamp(-rect.top/total, 0, 1);
+
+  el('healthFill').style.width = (p*100)+'%';
+  el('healthPct').textContent = Math.round(p*100);
+  el('keepScroll').style.opacity = clamp(1-p*4,0,1);
+
+  const statusEl = el('healthStatus');
+  if(p < 0.01) statusEl.textContent = 'Rescue in progress...';
+  else if(p < 0.3) statusEl.textContent = 'Stabilizing...';
+  else if(p < 0.6) statusEl.textContent = 'Getting stronger 💪';
+  else if(p < 0.85) statusEl.textContent = 'Almost there!';
+  else statusEl.textContent = 'Fully recovered! 🎉';
+
+  setFrame(p);
+
+  caps[0].style.opacity = win(p,-1,0,.2,.27);
+  caps[0].style.transform = 'translateX(-50%) translateY(' + (1 - win(p,-1,0,.2,.27)) * 8 + 'px)';
+  caps[1].style.opacity = win(p,.24,.31,.46,.53);
+  caps[1].style.transform = 'translateX(-50%) translateY(' + (1 - win(p,.24,.31,.46,.53)) * 8 + 'px)';
+  caps[2].style.opacity = win(p,.5,.57,.72,.79);
+  caps[2].style.transform = 'translateX(-50%) translateY(' + (1 - win(p,.5,.57,.72,.79)) * 8 + 'px)';
+  caps[3].style.opacity = win(p,.8,.87);
+  caps[3].style.transform = 'translateX(-50%) translateY(' + (1 - win(p,.8,.87)) * 8 + 'px)';
+
+  if(p>=0.985 && !popped){ popped = true; heartBurst(); }
+  if(p<0.9) popped = false;
+}
+addEventListener('scroll', () => {
+  if(!ticking){ ticking = true; requestAnimationFrame(updateJourney); }
+}, {passive:true});
+addEventListener('resize', updateJourney);
+updateJourney();
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+},{threshold:.15});
+$$('.reveal').forEach(x=>io.observe(x));
+
+const cio = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(!en.isIntersecting) return;
+    cio.unobserve(en.target);
+    const target = +en.target.dataset.target, t0 = performance.now(), dur = 1800;
+    (function tick(now){
+      const t = clamp((now-t0)/dur,0,1), v = Math.round(target*(1-Math.pow(1-t,3)));
+      en.target.textContent = v.toLocaleString('en-US');
+      if(t<1) requestAnimationFrame(tick);
+    })(t0);
+  });
+},{threshold:.6});
+$$('.count').forEach(x=>cio.observe(x));
+
+let amount = 10;
+const USD_TO_BRL = 5;
+const impactMap = [
+  [5,   "2 days of warm meals for a hungry rescue 🍖"],
+  [10,  "a full week of food and daily medication 🥣"],
+  [25,  "complete vaccines + 30 days of medication 💉"],
+  [50,  "exams, blood work and vet check-ups 🩺"],
+  [100, "full treatment for a seriously ill dog 🏥"],
+  [250, "two complete rescues — from street to sofa 🏠"]
+];
+function renderAmount(){
+  let msg = impactMap[0][1];
+  for(const [v,m] of impactMap) if(amount>=v) msg = m;
+  const brl = Math.round(amount*USD_TO_BRL).toLocaleString('en-US');
+  $('#btnAmt').textContent = '$'+amount;
+  $('#impactLine').textContent = '$'+amount+' ≈ R$'+brl+' in Brazil — '+msg;
+}
+function selectAmount(a, fromCustom){
+  amount = a;
+  if(!fromCustom) $('#customAmt').value = '';
+  $$('.amt-btn').forEach(b=>b.classList.toggle('sel', !fromCustom && +b.dataset.amt===a));
+  renderAmount();
+}
+$$('.amt-btn').forEach(b => b.addEventListener('click', () => selectAmount(+b.dataset.amt)));
+$('#customAmt').addEventListener('input', e => {
+  const v = Math.floor(+e.target.value);
+  if(v>=1) selectAmount(v, true);
+});
+$$('.tier').forEach(t => t.addEventListener('click', () => {
+  selectAmount(+t.dataset.pick);
+  document.getElementById('donate').scrollIntoView({behavior:'smooth'});
+}));
+$('#paypalBtn').addEventListener('click', () => {
+  const url = 'https://www.paypal.com/donate/?business=' + encodeURIComponent(PAYPAL_EMAIL)
+            + '&amount=' + amount
+            + '&currency_code=USD'
+            + '&item_name=' + encodeURIComponent('Donation to ' + ORG_NAME);
+  window.open(url, '_blank', 'noopener,noreferrer');
+});
+renderAmount();
+
+function showToast(msg) {
+  let toast = el('toastMsg');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toastMsg';
+    toast.className = 'toast-msg';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3200);
+}
+
+const copyPixBtn = el('copyPixBtn');
+if (copyPixBtn) {
+  copyPixBtn.addEventListener('click', () => {
+    const key = el('pixKeyText').textContent.trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(key).then(() => {
+        copyPixBtn.textContent = 'Copiado! ✓';
+        showToast('✨ Chave PIX (<b>' + key + '</b>) copiada para a área de transferência!');
+        setTimeout(() => { copyPixBtn.textContent = 'Copiar 📋'; }, 2500);
+      }).catch(() => {
+        fallbackCopy(key);
+      });
+    } else {
+      fallbackCopy(key);
+    }
+  });
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    copyPixBtn.textContent = 'Copiado! ✓';
+    showToast('✨ Chave PIX (<b>' + text + '</b>) copiada!');
+    setTimeout(() => { copyPixBtn.textContent = 'Copiar 📋'; }, 2500);
+  } catch (err) {
+    showToast('📋 Chave PIX: ' + text);
+  }
+  document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>

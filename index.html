@@ -192,41 +192,26 @@ nav.scrolled {
 .hero-overlay-content {
   position: relative;
   z-index: 3;
-  text-align: center;
-  color: #fff;
-  padding: 40px 20px 60px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px clamp(20px, 4vw, 60px) 50px;
   margin-top: auto;
-  max-width: 860px;
 }
-.hero-overlay-content h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: clamp(2.6rem, 6.5vw, 5.2rem);
-  line-height: 1.04;
-  letter-spacing: -1.5px;
-  text-transform: uppercase;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.7);
+.hero-cta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
 }
-.hero-overlay-content h1 .green-highlight { color: var(--green-lime); }
-.hero-heart-doodle {
-  font-family: 'Caveat', cursive;
-  font-size: 3.4rem;
-  color: #fff;
-  margin: 6px 0 10px;
-  line-height: 1;
-  opacity: 0.95;
+@media (max-width: 680px) {
+  .hero-cta-row {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+  }
 }
-.hero-subtext {
-  font-size: clamp(1.1rem, 2vw, 1.3rem);
-  font-weight: 600;
-  line-height: 1.5;
-  max-width: 580px;
-  margin: 0 auto 34px;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
-}
-.hero-subtext .hl-green { color: var(--green-lime); font-weight: 800; }
-
-.hero-cta-row { display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
 
 /* Impact Paper Ribbon */
 .impact-strip {
@@ -581,7 +566,6 @@ footer .fine { font-size:.8rem; opacity:.6; margin-top:30px; }
     <div class="hero-split-left">
       <span class="badge-tape black">FROM ABANDONED</span>
     </div>
-    <div class="hero-divider-line"></div>
     <div class="hero-split-right">
       <span class="badge-tape green">TO BELOVED</span>
     </div>

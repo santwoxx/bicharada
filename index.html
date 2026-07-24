@@ -194,17 +194,18 @@ nav.scrolled {
     gap: 16px;
   }
   .hero-split-container {
-    min-height: 90vh;
+    min-height: 85vh;
     padding-top: 60px;
-    background: #0f172a !important; /* Solid color for the button area */
+    background: #0f172a !important; /* Solid color */
   }
   .hero-bg-split {
-    inset: 0 0 160px 0; /* Leave 160px at the bottom for the buttons */
-    background-position: center bottom !important; 
+    inset: 0; 
+    background-size: contain !important; 
+    background-position: center top 80px !important; 
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: 100px;
+    justify-content: center;
+    padding-top: 180px; /* Push badges below the contained image */
     gap: 12px;
   }
   .hero-split-left, .hero-split-right {

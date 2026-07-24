@@ -170,25 +170,6 @@ nav.scrolled {
   flex: 1;
   position: relative;
 }
-.hero-divider-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: rgba(255,255,255,0.75);
-  z-index: 2;
-  transform: translateX(-50%);
-}
-.hero-divider-line::before {
-  content: '▼';
-  position: absolute;
-  top: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  font-size: 11px;
-}
 
 .hero-overlay-content {
   position: relative;
@@ -205,12 +186,42 @@ nav.scrolled {
   width: 100%;
   gap: 20px;
 }
-@media (max-width: 680px) {
+@media (max-width: 760px) {
   .hero-cta-row {
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     gap: 16px;
+  }
+  .hero-cta-row .btn {
+    justify-content: center;
+  }
+  .hero-split-container {
+    min-height: 85vh;
+    padding-top: 80px; /* Space for nav */
+    background-position: 70% top !important; /* Better focus on mobile */
+  }
+  .hero-bg-split {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 120px; /* Keep it above the buttons */
+  }
+  .hero-split-left, .hero-split-right {
+    flex: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .badge-tape {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    font-size: 1.1rem; /* Make the text bigger */
+    padding: 10px 24px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.35);
   }
 }
 
@@ -466,20 +477,22 @@ p.lead { color: var(--text-muted); font-weight: 600; font-size: 1.1rem; max-widt
 .story { background:#fff; border-radius:18px; overflow:hidden; box-shadow:var(--shadow-card); border:1.5px solid #e2e8f0; transition:transform .35s; }
 .story:hover { transform:translateY(-9px); }
 .story .photo { height:260px; overflow:hidden; position:relative; background:#e2e8f0; }
-.story .photo img { width:100%; height:100%; object-fit:cover; }
+.story .photo img { width:100%; height:100%; object-fit:cover; object-position:center 20%; }
 .story .photo .label { position:absolute; top:12px; left:12px; background:rgba(0,0,0,.65); color:#fff; font-weight:900; font-size:.7rem; letter-spacing:1.5px; text-transform:uppercase; padding:6px 14px; border-radius:999px; backdrop-filter:blur(6px); }
 .story .body { padding:26px; }
 .story h3 { color:var(--green-dark); margin-bottom:8px; font-size:1.3rem; }
 .story p { color:var(--text-muted); font-weight:600; font-size:.98rem; line-height:1.5; }
 .story .badge { display:inline-block; margin-top:14px; background:var(--green-soft); color:var(--green-dark); font-weight:900; font-size:.78rem; letter-spacing:1px; text-transform:uppercase; padding:7px 14px; border-radius:999px; }
 
-.gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:14px; max-width:1150px; margin:50px auto 0; }
-.gallery .g-item { border-radius:18px; overflow:hidden; aspect-ratio:4/3; position:relative; cursor:pointer; transition:transform .3s; }
-.gallery .g-item:hover { transform:scale(1.04); }
-.gallery .g-item img { width:100%; height:100%; object-fit:cover; }
-.gallery .g-item .g-overlay { position:absolute; inset:0; background:linear-gradient(transparent 50%,rgba(0,0,0,.6)); display:flex; align-items:flex-end; padding:14px; opacity:0; transition:opacity .3s; }
-.gallery .g-item:hover .g-overlay { opacity:1; }
-.gallery .g-overlay span { color:#fff; font-weight:800; font-size:.85rem; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; max-width: 1150px; margin: 56px auto 0; }
+.gallery .g-item { border-radius: 20px; overflow: hidden; aspect-ratio: 1/1; position: relative; cursor: pointer; box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+.gallery .g-item img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.gallery .g-item:hover img { transform: scale(1.08); }
+.gallery .g-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; opacity: 0; transition: opacity 0.4s ease; }
+.gallery .g-item:hover .g-overlay { opacity: 1; }
+.gallery .g-text h4 { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.6rem; margin-bottom: 6px; transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.gallery .g-text span { color: #e2e8f0; font-weight: 700; font-size: 0.95rem; line-height: 1.4; transform: translateY(15px); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s; display: block; }
+.gallery .g-item:hover .g-text h4, .gallery .g-item:hover .g-text span { transform: translateY(0); }
 
 /* Donate Card & PIX Box */
 #donate { background:#f1f5f9; }
@@ -698,16 +711,64 @@ footer .fine { font-size:.8rem; opacity:.6; margin-top:30px; }
 
 <!-- ═══════════════ GALLERY ═══════════════ -->
 <section class="block center" id="gallery">
-  <p class="kicker reveal">Gallery</p>
-  <h2 class="title reveal">Inside Our Shelter</h2>
-  <p class="lead reveal">A look at daily life at Rescue Brazil — the dogs, the care, the love.</p>
+  <p class="kicker reveal">Faces of Hope</p>
+  <h2 class="title reveal">Every life has a story</h2>
+  <p class="lead reveal">Behind every rescue is a heartbeat. Some are still waiting for a miracle, while others have finally found their forever home.</p>
   <div class="gallery">
-    <div class="g-item reveal" style="--delay:.05s"><img src="images/Instituto_Caramelo_B.jpg" alt="Shelter dogs playing" loading="lazy" decoding="async"><div class="g-overlay"><span>Dogs playing at the shelter</span></div></div>
-    <div class="g-item reveal" style="--delay:.1s"><img src="images/Instituto_Caramelo_B_1.jpg" alt="Volunteer caring for a dog" loading="lazy" decoding="async"><div class="g-overlay"><span>Volunteer bath time</span></div></div>
-    <div class="g-item reveal" style="--delay:.15s"><img src="images/Instituto_Caramelo_B_2.jpg" alt="Dogs resting at the shelter" loading="lazy" decoding="async"><div class="g-overlay"><span>Nap time in the cozy wing</span></div></div>
-    <div class="g-item reveal" style="--delay:.2s"><img src="images/luna1.jpeg" alt="Luna happy after adoption" loading="lazy" decoding="async"><div class="g-overlay"><span>Luna — adopted!</span></div></div>
-    <div class="g-item reveal" style="--delay:.25s"><img src="images/max1.jpeg" alt="Max running happily" loading="lazy" decoding="async"><div class="g-overlay"><span>Max — adopted!</span></div></div>
-    <div class="g-item reveal" style="--delay:.3s"><img src="images/bella1.jpeg" alt="Bella the therapy dog" loading="lazy" decoding="async"><div class="g-overlay"><span>Bella — therapy dog!</span></div></div>
+    <div class="g-item reveal" style="--delay:.05s">
+      <img src="images/Instituto_Caramelo_B.jpeg" alt="Bidu playing at the shelter" loading="lazy" decoding="async">
+      <div class="g-overlay">
+        <div class="g-text">
+          <h4>Bidu</h4>
+          <span>Rescued from the streets, still waiting for a family to love him.</span>
+        </div>
+      </div>
+    </div>
+    <div class="g-item reveal" style="--delay:.1s">
+      <img src="images/Instituto_Caramelo_B_1.jpeg" alt="Nina receiving care" loading="lazy" decoding="async">
+      <div class="g-overlay">
+        <div class="g-text">
+          <h4>Nina</h4>
+          <span>Finally learning what it feels like to be safe and cared for.</span>
+        </div>
+      </div>
+    </div>
+    <div class="g-item reveal" style="--delay:.15s">
+      <img src="images/Instituto_Caramelo_B_2.jpeg" alt="Thor resting safely" loading="lazy" decoding="async">
+      <div class="g-overlay">
+        <div class="g-text">
+          <h4>Thor</h4>
+          <span>Recovering from surgery in a warm, comfortable bed.</span>
+        </div>
+      </div>
+    </div>
+    <div class="g-item reveal" style="--delay:.2s">
+      <img src="images/luna1.jpeg" alt="Luna happy after adoption" loading="lazy" decoding="async">
+      <div class="g-overlay">
+        <div class="g-text">
+          <h4>Luna</h4>
+          <span>Adopted & cherished forever! She never stops smiling. ❤</span>
+        </div>
+      </div>
+    </div>
+    <div class="g-item reveal" style="--delay:.25s">
+      <img src="images/max1.jpeg" alt="Max running happily" loading="lazy" decoding="async">
+      <div class="g-overlay">
+        <div class="g-text">
+          <h4>Max</h4>
+          <span>His second chance at life gave him wings to run. ❤</span>
+        </div>
+      </div>
+    </div>
+    <div class="g-item reveal" style="--delay:.3s">
+      <img src="images/bella1.jpeg" alt="Bella the therapy dog" loading="lazy" decoding="async">
+      <div class="g-overlay">
+        <div class="g-text">
+          <h4>Bella</h4>
+          <span>From an abandoned box to a certified therapy dog. ❤</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
